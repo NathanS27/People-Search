@@ -1,6 +1,6 @@
 package main;
 
-public class Person {
+public class Person{
 	
 	private String name;
 	private int age;
@@ -24,5 +24,9 @@ public class Person {
 
 	public void setAge(int age) {
 		this.age = age;
+	}
+	
+	public int compareTo(Object obj) {
+		return name.compareTo(((Person)obj).getName());
 	}
 }
