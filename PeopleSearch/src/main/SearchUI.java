@@ -29,13 +29,27 @@ public class SearchUI extends GBFrame {
 		output.setBackground(new Color(101, 247, 160).brighter());
 		people = new ArrayListV2();
 		sort=new sort();
+		age.setText("");
 	}
 	
 	public void buttonClicked(JButton b) {
 		if(b==add) {
-			people.add(new Person(name.getName(),age.getNumber()));
+			people.add(new Person(name.getText(),age.getNumber()));
+			age.setText("");
+			name.setText("");
+			sort.sortNames(people);
+			display();
 		}
 		if(b==search) {
+			String str="Person Not Found";
+			Person p = sort.linearSearch(searchInput.getText(), people);
+			if(p!=null) {
+				msg(this,"Person Info",p,people);
+			}
+			else {
+				msg(str);
+			}
+			searchInput.setText("");
 			sort.sortNames(people);
 			display();
 		}
@@ -46,6 +60,7 @@ public class SearchUI extends GBFrame {
 		people.add(new Person("Alex", 12));
 		people.add(new Person("Chad", 69));
 		people.add(new Person("Zak", 16));
+		sort.sortNames(people);
 		display();
 	}
 	
@@ -53,6 +68,16 @@ public class SearchUI extends GBFrame {
 		String str="";
 		str+=people.toString();
 		output.setText(str);
+	}
+	
+	private void msg(JFrame parent,String title,Person p,ArrayListV2 list) {
+		messageDlg display = new messageDlg(this,title,p,list);
+		display.setVisible(true);
+	}
+	
+	private void msg(String str) {
+		messageDlg display = new messageDlg(this,str);
+		display.setVisible(true);
 	}
 	
 	public static void main(String[] args) {

@@ -4,6 +4,8 @@ public class Person{
 	
 	private String name;
 	private int age;
+	private int count;
+	private int loc;
 	
 	public Person(String nm, int num) {
 		name=nm;
@@ -27,6 +29,22 @@ public class Person{
 	}
 	
 	public int compareTo(Object obj) {
-		return name.compareTo(((Person)obj).getName());
+		return name.toLowerCase().compareTo(((Person)obj).getName().toLowerCase());
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public int getLoc() {
+		return loc;
+	}
+
+	public void setLoc(int loc) {
+		this.loc = loc;
 	}
 }

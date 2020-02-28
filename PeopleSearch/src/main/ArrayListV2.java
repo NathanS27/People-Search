@@ -18,8 +18,20 @@ public class ArrayListV2 {
 	   }
 	   people[size++] = e;
 	   }
+	
 	private void increaseSize() {
 		   people=Arrays.copyOf(people, people.length+1);
+	}
+	
+	public void delete(int i) {
+		Person[] temp = people;
+		int count=0;
+		people = new Person[size-1];
+		for(int k=0;k<people.length;k++) {
+			if(k!=i) {
+				people[count]=temp[k];
+			}
+		}
 	}
 	
 	public String toString() {
@@ -40,4 +52,5 @@ public class ArrayListV2 {
 	public void set(int i,Person p) {
 		people[i]=p;
 	}
+	
 }
