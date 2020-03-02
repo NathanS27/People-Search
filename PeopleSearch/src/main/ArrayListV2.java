@@ -24,14 +24,12 @@ public class ArrayListV2 {
 	}
 	
 	public void delete(int i) {
-		Person[] temp = people;
-		int count=0;
-		people = new Person[size-1];
-		for(int k=0;k<people.length;k++) {
-			if(k!=i) {
-				people[count]=temp[k];
-			}
-		}
+	   Person[] n = new Person[people.length - 1];
+	   System.arraycopy(people, 0, n, 0, i );
+	   System.arraycopy(people, i+1, n, i, people.length - i-1);
+	   people=new Person[n.length];
+	   people=n;
+	   size--;
 	}
 	
 	public String toString() {

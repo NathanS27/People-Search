@@ -18,17 +18,18 @@ public class SearchUI extends GBFrame {
 	
 	JTextArea output = addTextArea("",1,4,2,2);
 	
-	JButton search = addButton("Search",3,3,1,1);
+	JButton searchBinary = addButton("Search Binary",3,3,1,1);
+	JButton searchLinear = addButton("Search Linear",3,4,1,1);
 	JTextField searchInput = addTextField("",3,4,1,1);
 	
 	ArrayListV2 people;
-	sort sort;
+	sort s;
 	
 	public SearchUI() {
 		output.setEditable(false);
 		output.setBackground(new Color(101, 247, 160).brighter());
 		people = new ArrayListV2();
-		sort=new sort();
+		s=new sort();
 		age.setText("");
 	}
 	
@@ -37,20 +38,43 @@ public class SearchUI extends GBFrame {
 			people.add(new Person(name.getText(),age.getNumber()));
 			age.setText("");
 			name.setText("");
-			sort.sortNames(people);
+			s.sortNames(people);
 			display();
 		}
-		if(b==search) {
+		if(b==searchBinary) {
 			String str="Person Not Found";
-			Person p = sort.linearSearch(searchInput.getText(), people);
-			if(p!=null) {
-				msg(this,"Person Info",p,people);
+			if(!searchInput.getText().isEmpty()) {
+				Person p = s.binarySearch(searchInput.getText(), people);
+				if(p!=null) {
+					msg(this,"Person Info",p,people);
+				}
+				else {
+					msg(str);
+				}
 			}
-			else {
-				msg(str);
+			else{
+				msg("Keyword is Empty");
 			}
 			searchInput.setText("");
-			sort.sortNames(people);
+			s.sortNames(people);
+			display();
+		}
+		if(b==searchLinear) {
+			String str="Person Not Found";
+			if(!searchInput.getText().isEmpty()) {
+				Person p = s.linearSearch(searchInput.getText(), people);
+				if(p!=null) {
+					msg(this,"Person Info",p,people);
+				}
+				else {
+					msg(str);
+				}
+			}
+			else{
+				msg("Keyword is Empty");
+			}
+			searchInput.setText("");
+			s.sortNames(people);
 			display();
 		}
 	}
@@ -60,7 +84,7 @@ public class SearchUI extends GBFrame {
 		people.add(new Person("Alex", 12));
 		people.add(new Person("Chad", 69));
 		people.add(new Person("Zak", 16));
-		sort.sortNames(people);
+		s.sortNames(people);
 		display();
 	}
 	
@@ -71,12 +95,12 @@ public class SearchUI extends GBFrame {
 	}
 	
 	private void msg(JFrame parent,String title,Person p,ArrayListV2 list) {
-		messageDlg display = new messageDlg(this,title,p,list);
+		messageDlg display = new messageDlg(this,title,p,s,list);
 		display.setVisible(true);
 	}
 	
 	private void msg(String str) {
-		messageDlg display = new messageDlg(this,str);
+		messageDlg display = new messageDlg(this,str,s.getCount());
 		display.setVisible(true);
 	}
 	

@@ -12,7 +12,8 @@ public class messageDlg extends GBDialog {
 	JButton close = addButton("CLOSE",3,1,1,1);
 	
 	JLabel nameLbl = addLabel("Name:",1,1,1,1);
-	JTextField name = addTextField("",1,2,2,1);
+	JTextField name = addTextField("",1,2,1,1);
+	JLabel count = addLabel("",1,3,1,1);
 	
 	JLabel ageLbl = addLabel("Age:",2,1,1,1);
 	IntegerField age = addIntegerField(0,2,2,2,1);
@@ -23,26 +24,29 @@ public class messageDlg extends GBDialog {
 	ArrayListV2 list;
 	Person p;
 	
-	public messageDlg(JFrame parent,String message) {
+	public messageDlg(JFrame parent,String message,int comparisons) {
 		super(parent);
 		nameLbl.setVisible(false);
 		name.setVisible(false);
-		ageLbl.setVisible(false);
+		count.setVisible(false);
+		ageLbl.setVisible(false); 
 		age.setVisible(false);
 		add.setVisible(false);
+		delete.setVisible(false);
 		setTitle("ERROR");
 		getContentPane().setBackground(Color.RED.brighter().brighter());
 		setDlgCloseIndicator("Close");
 		setSize(400, 100);
 		setLocationRelativeTo(null);
-		display.setText(String.format("<html><font color='white'>%s</font></html>", message));
+		display.setText(String.format("<html><font color='white'>%s | Comparisons:%d</font></html>", message,comparisons));
 	}
 	
-	public messageDlg(JFrame parent,String title,Person iP,ArrayListV2 Alist) {
+	public messageDlg(JFrame parent,String title,Person iP, sort s,ArrayListV2 Alist) {
 		super(parent);
 		display.setVisible(false);
 		name.setText(iP.getName());
 		age.setNumber(iP.getAge());
+		count.setText(String.format("Comparisons : %d", s.getCount()));
 		p=iP;
 		list=Alist;
 		setTitle(title);
