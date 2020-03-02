@@ -2,15 +2,15 @@ package main;
 
 import java.util.Arrays;
 
-public class ArrayListV2 {
+public class PeopleList {
 
 	private static final int INITIAL_CAPACITY = 1;
 	private int size = 0;
 	private Person people[] = {};
-	private int count=0;
+	private int comparisons=0;
 	private int loc;
 
-	public ArrayListV2() {
+	public PeopleList() {
 		   people = new Person[INITIAL_CAPACITY];
 	}
 	
@@ -70,20 +70,26 @@ public class ArrayListV2 {
 	}
 	
 	public Person linearSearch(String name) {
-		setCount(0);
+		setComparisons(0);
 		setLoc(0);
 		for(int i=0;i<size;i++) {
-			if(get(i).getName().toLowerCase().equals(name.toLowerCase())) {
-				setLoc(i);
-				count++;
+			comparisons++;
+			switch(get(i).getName().compareToIgnoreCase(name)) {
+			case -1:
+				//if name comes later in the array
+				break;
+			case 0:
 				return get(i);
+			case 1:
+				//if searching past where name should be,not found
+				return null;
 			}
-			count++;
 		}
+		//ran out of items to search, name not found
 		return null;
 	}
 	public Person binarySearch(String name) {
-			setCount(0);
+			setComparisons(0);
 			setLoc(0);
 			int start = 0;
 			int end = size();
@@ -91,7 +97,7 @@ public class ArrayListV2 {
 			int compare;
 			while(start<end) {
 				compare = get(mid).getName().toLowerCase().compareTo(name.toLowerCase());
-				count++;
+				comparisons++;
 				if(compare==0) {
 					return get(mid);
 				}
@@ -112,11 +118,11 @@ public class ArrayListV2 {
 			return null;
 			
 	    }
-	public int getCount() {
-		return count;
+	public int getComparisons() {
+		return comparisons;
 	}
-	public void setCount(int count) {
-		this.count = count;
+	public void setComparisons(int comparisons) {
+		this.comparisons = comparisons;
 	}
 	public int getLoc() {
 		return loc;

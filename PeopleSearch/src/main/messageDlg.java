@@ -21,7 +21,7 @@ public class messageDlg extends GBDialog {
 	JButton add = addButton("Update",3,2,1,1);
 	JButton delete = addButton("Delete",3,3,2,1);
 	
-	ArrayListV2 list;
+	PeopleList list;
 	Person p;
 	
 	public messageDlg(JFrame parent,String message,int comparisons) {
@@ -41,12 +41,12 @@ public class messageDlg extends GBDialog {
 		display.setText(String.format("<html><font color='white'>%s | Comparisons:%d</font></html>", message,comparisons));
 	}
 	
-	public messageDlg(JFrame parent,String title,Person iP,ArrayListV2 Alist) {
+	public messageDlg(JFrame parent,String title,Person iP,PeopleList Alist) {
 		super(parent);
 		display.setVisible(false);
 		name.setText(iP.getName());
 		age.setNumber(iP.getAge());
-		count.setText(String.format("Comparisons : %d", Alist.getCount()));
+		count.setText(String.format("Comparisons : %d", Alist.getComparisons()));
 		p=iP;
 		list=Alist;
 		setTitle(title);

@@ -22,22 +22,30 @@ public class SearchUI extends GBFrame {
 	JButton searchLinear = addButton("Search Linear",3,4,1,1);
 	JTextField searchInput = addTextField("",3,4,1,1);
 	
-	ArrayListV2 people;
+	PeopleList people;
 	
 	public SearchUI() {
 		output.setEditable(false);
 		output.setBackground(new Color(101, 247, 160).brighter());
-		people = new ArrayListV2();
+		people = new PeopleList();
 		age.setText("");
 	}
 	
 	public void buttonClicked(JButton b) {
 		if(b==add) {
-			people.add(new Person(name.getText(),age.getNumber()));
-			age.setText("");
-			name.setText("");
-			people.sort();
-			display();
+			if(name.getText().isEmpty()) {
+				msg("Enter a name");
+			}
+			else if(age.getNumber()<0) {
+				msg("Age must be greater than 0");
+			}
+			else {
+				people.add(new Person(name.getText(),age.getNumber()));
+				age.setText("");
+				name.setText("");
+				//people.sort();
+				display();
+			}
 		}
 		if(b==searchBinary) {
 			String str="Person Not Found";
@@ -92,13 +100,13 @@ public class SearchUI extends GBFrame {
 		output.setText(str);
 	}
 	
-	private void msg(JFrame parent,String title,Person p,ArrayListV2 list) {
+	private void msg(JFrame parent,String title,Person p,PeopleList list) {
 		messageDlg display = new messageDlg(this,title,p,list);
 		display.setVisible(true);
 	}
 	
 	private void msg(String str) {
-		messageDlg display = new messageDlg(this,str,people.getCount());
+		messageDlg display = new messageDlg(this,str,people.getComparisons());
 		display.setVisible(true);
 	}
 	
