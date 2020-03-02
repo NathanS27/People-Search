@@ -41,12 +41,12 @@ public class messageDlg extends GBDialog {
 		display.setText(String.format("<html><font color='white'>%s | Comparisons:%d</font></html>", message,comparisons));
 	}
 	
-	public messageDlg(JFrame parent,String title,Person iP, sort s,ArrayListV2 Alist) {
+	public messageDlg(JFrame parent,String title,Person iP,ArrayListV2 Alist) {
 		super(parent);
 		display.setVisible(false);
 		name.setText(iP.getName());
 		age.setNumber(iP.getAge());
-		count.setText(String.format("Comparisons : %d", s.getCount()));
+		count.setText(String.format("Comparisons : %d", Alist.getCount()));
 		p=iP;
 		list=Alist;
 		setTitle(title);

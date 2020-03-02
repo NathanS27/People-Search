@@ -23,13 +23,11 @@ public class SearchUI extends GBFrame {
 	JTextField searchInput = addTextField("",3,4,1,1);
 	
 	ArrayListV2 people;
-	sort s;
 	
 	public SearchUI() {
 		output.setEditable(false);
 		output.setBackground(new Color(101, 247, 160).brighter());
 		people = new ArrayListV2();
-		s=new sort();
 		age.setText("");
 	}
 	
@@ -38,13 +36,13 @@ public class SearchUI extends GBFrame {
 			people.add(new Person(name.getText(),age.getNumber()));
 			age.setText("");
 			name.setText("");
-			s.sortNames(people);
+			people.sort();
 			display();
 		}
 		if(b==searchBinary) {
 			String str="Person Not Found";
 			if(!searchInput.getText().isEmpty()) {
-				Person p = s.binarySearch(searchInput.getText(), people);
+				Person p = people.binarySearch(searchInput.getText());
 				if(p!=null) {
 					msg(this,"Person Info",p,people);
 				}
@@ -56,13 +54,13 @@ public class SearchUI extends GBFrame {
 				msg("Keyword is Empty");
 			}
 			searchInput.setText("");
-			s.sortNames(people);
+			people.sort();
 			display();
 		}
 		if(b==searchLinear) {
 			String str="Person Not Found";
 			if(!searchInput.getText().isEmpty()) {
-				Person p = s.linearSearch(searchInput.getText(), people);
+				Person p = people.linearSearch(searchInput.getText());
 				if(p!=null) {
 					msg(this,"Person Info",p,people);
 				}
@@ -74,7 +72,7 @@ public class SearchUI extends GBFrame {
 				msg("Keyword is Empty");
 			}
 			searchInput.setText("");
-			s.sortNames(people);
+			people.sort();
 			display();
 		}
 	}
@@ -84,7 +82,7 @@ public class SearchUI extends GBFrame {
 		people.add(new Person("Alex", 12));
 		people.add(new Person("Chad", 69));
 		people.add(new Person("Zak", 16));
-		s.sortNames(people);
+		people.sort();
 		display();
 	}
 	
@@ -95,12 +93,12 @@ public class SearchUI extends GBFrame {
 	}
 	
 	private void msg(JFrame parent,String title,Person p,ArrayListV2 list) {
-		messageDlg display = new messageDlg(this,title,p,s,list);
+		messageDlg display = new messageDlg(this,title,p,list);
 		display.setVisible(true);
 	}
 	
 	private void msg(String str) {
-		messageDlg display = new messageDlg(this,str,s.getCount());
+		messageDlg display = new messageDlg(this,str,people.getCount());
 		display.setVisible(true);
 	}
 	
